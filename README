@@ -14,7 +14,7 @@ Installation
         $ cd nginx-1.4.3/
         $ patch -p1 < /path/to/nginx_tcp_proxy_module/tcp-1.4.3.patch
 
-        $ ./configure --add-module=/path/to/nginx_tcp_proxy_module
+        $ ./configure --with-http_perl_module --with-http_ssl_module --prefix=/opt/.../nginx --add-module=/path/to/nginx_tcp_proxy_module
 
         $ make
         $ make install
