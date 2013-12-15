@@ -37,7 +37,7 @@ diff -rupN ngx_openresty-1.4.3.7-original/bundle/nginx-1.4.3/src/event/ngx_event
  #define NGX_PEER_NEXT                2
  #define NGX_PEER_FAILED              4
  
-+define NGX_INVALID_CHECK_INDEX     (ngx_uint_t)(-1)
++#define NGX_INVALID_CHECK_INDEX     (ngx_uint_t)(-1)
  
  typedef struct ngx_peer_connection_s  ngx_peer_connection_t;
  
