@@ -1,0 +1,52 @@
+diff -rupN nginx-1.4.6-original/src/core/ngx_log.c nginx-1.4.6/src/core/ngx_log.c
+--- nginx-1.4.6-original/src/core/ngx_log.c	2014-03-04 08:46:45.000000000 -0300
++++ nginx-1.4.6/src/core/ngx_log.c	2014-03-05 09:57:04.992523495 -0300
+@@ -67,7 +67,7 @@ static ngx_str_t err_levels[] = {
+ 
+ static const char *debug_levels[] = {
+     "debug_core", "debug_alloc", "debug_mutex", "debug_event",
+-    "debug_http", "debug_mail", "debug_mysql"
++    "debug_http", "debug_mail", "debug_mysql", "debug_tcp"
+ };
+ 
+ 
+diff -rupN nginx-1.4.6-original/src/core/ngx_log.h nginx-1.4.6/src/core/ngx_log.h
+--- nginx-1.4.6-original/src/core/ngx_log.h	2014-03-04 08:46:45.000000000 -0300
++++ nginx-1.4.6/src/core/ngx_log.h	2014-03-05 09:55:00.527523543 -0300
+@@ -30,6 +30,7 @@
+ #define NGX_LOG_DEBUG_HTTP        0x100
+ #define NGX_LOG_DEBUG_MAIL        0x200
+ #define NGX_LOG_DEBUG_MYSQL       0x400
++#define NGX_LOG_DEBUG_TCP         0x800
+ 
+ /*
+  * do not forget to update debug_levels[] in src/core/ngx_log.c
+@@ -37,7 +38,7 @@
+  */
+ 
+ #define NGX_LOG_DEBUG_FIRST       NGX_LOG_DEBUG_CORE
+-#define NGX_LOG_DEBUG_LAST        NGX_LOG_DEBUG_MYSQL
++#define NGX_LOG_DEBUG_LAST        NGX_LOG_DEBUG_TCP
+ #define NGX_LOG_DEBUG_CONNECTION  0x80000000
+ #define NGX_LOG_DEBUG_ALL         0x7ffffff0
+ 
+diff -rupN nginx-1.4.6-original/src/event/ngx_event_connect.h nginx-1.4.6/src/event/ngx_event_connect.h
+--- nginx-1.4.6-original/src/event/ngx_event_connect.h	2014-03-04 08:46:45.000000000 -0300
++++ nginx-1.4.6/src/event/ngx_event_connect.h	2014-03-05 09:55:44.002523525 -0300
+@@ -18,6 +18,7 @@
+ #define NGX_PEER_NEXT                2
+ #define NGX_PEER_FAILED              4
+ 
++#define NGX_INVALID_CHECK_INDEX (ngx_uint_t)(-1)
+ 
+ typedef struct ngx_peer_connection_s  ngx_peer_connection_t;
+ 
+@@ -43,6 +44,8 @@ struct ngx_peer_connection_s {
+ 
+     ngx_uint_t                       tries;
+ 
++    ngx_uint_t                       check_index;
++    
+     ngx_event_get_peer_pt            get;
+     ngx_event_free_peer_pt           free;
+     void                            *data;
