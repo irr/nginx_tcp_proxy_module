@@ -9,10 +9,10 @@ Installation
     example, the version 1.4.3 (see nginx compatibility), and then build the
     source with this module:
 
-        $ wget 'http://nginx.org/download/nginx-1.4.4.tar.gz'
-        $ tar -xzvf nginx-1.4.4.tar.gz
-        $ cd nginx-1.4.4/
-        $ patch -p1 < /path/to/nginx_tcp_proxy_module/tcp-1.4.4.patch
+        $ wget 'http://nginx.org/download/nginx-1.6.0.tar.gz'
+        $ tar -xzvf nginx-1.6.0.tar.gz
+        $ cd nginx-1.6.0/
+        $ patch -p1 < /path/to/nginx_tcp_proxy_module/tcp-1.6.0.patch
 
         $ ./configure --add-module=/path/to/nginx_tcp_proxy_module
 
