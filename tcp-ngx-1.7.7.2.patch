@@ -1,6 +1,6 @@
 diff -rupN ngx_openresty-1.7.7.2-original/bundle/nginx-1.7.7/src/core/ngx_log.c ngx_openresty-1.7.7.2/bundle/nginx-1.7.7/src/core/ngx_log.c
 --- ngx_openresty-1.7.7.2-original/bundle/nginx-1.7.7/src/core/ngx_log.c	2014-10-28 13:04:47.000000000 -0200
-+++ ngx_openresty-1.7.7.2/bundle/nginx-1.7.7/src/core/ngx_log.c	2015-02-08 11:26:41.146177904 -0200
++++ ngx_openresty-1.7.7.2/bundle/nginx-1.7.7/src/core/ngx_log.c	2015-02-08 11:41:47.418651317 -0200
 @@ -69,7 +69,7 @@ static ngx_str_t err_levels[] = {
  
  static const char *debug_levels[] = {
@@ -12,7 +12,7 @@ diff -rupN ngx_openresty-1.7.7.2-original/bundle/nginx-1.7.7/src/core/ngx_log.c 
  
 diff -rupN ngx_openresty-1.7.7.2-original/bundle/nginx-1.7.7/src/core/ngx_log.h ngx_openresty-1.7.7.2/bundle/nginx-1.7.7/src/core/ngx_log.h
 --- ngx_openresty-1.7.7.2-original/bundle/nginx-1.7.7/src/core/ngx_log.h	2015-02-03 21:33:18.000000000 -0200
-+++ ngx_openresty-1.7.7.2/bundle/nginx-1.7.7/src/core/ngx_log.h	2015-02-08 11:27:32.697636722 -0200
++++ ngx_openresty-1.7.7.2/bundle/nginx-1.7.7/src/core/ngx_log.h	2015-02-08 11:42:28.280731773 -0200
 @@ -30,6 +30,7 @@
  #define NGX_LOG_DEBUG_HTTP        0x100
  #define NGX_LOG_DEBUG_MAIL        0x200
@@ -32,13 +32,20 @@ diff -rupN ngx_openresty-1.7.7.2-original/bundle/nginx-1.7.7/src/core/ngx_log.h 
  
 diff -rupN ngx_openresty-1.7.7.2-original/bundle/nginx-1.7.7/src/event/ngx_event_connect.h ngx_openresty-1.7.7.2/bundle/nginx-1.7.7/src/event/ngx_event_connect.h
 --- ngx_openresty-1.7.7.2-original/bundle/nginx-1.7.7/src/event/ngx_event_connect.h	2014-10-28 13:04:48.000000000 -0200
-+++ ngx_openresty-1.7.7.2/bundle/nginx-1.7.7/src/event/ngx_event_connect.h	2015-02-08 11:28:24.461016160 -0200
-@@ -42,6 +42,8 @@ struct ngx_peer_connection_s {
++++ ngx_openresty-1.7.7.2/bundle/nginx-1.7.7/src/event/ngx_event_connect.h	2015-02-08 11:43:27.533372854 -0200
+@@ -18,6 +18,7 @@
+ #define NGX_PEER_NEXT                2
+ #define NGX_PEER_FAILED              4
+ 
++#define NGX_INVALID_CHECK_INDEX (ngx_uint_t)(-1)
+ 
+ typedef struct ngx_peer_connection_s  ngx_peer_connection_t;
+ 
+@@ -42,6 +43,7 @@ struct ngx_peer_connection_s {
      ngx_str_t                       *name;
  
      ngx_uint_t                       tries;
 +    ngx_uint_t                       check_index;
-+
      ngx_msec_t                       start_time;
  
      ngx_event_get_peer_pt            get;
